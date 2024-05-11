@@ -6,14 +6,13 @@
 /*   By: abenamar <abenamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 00:36:35 by abenamar          #+#    #+#             */
-/*   Updated: 2024/05/11 01:37:18 by abenamar         ###   ########.fr       */
+/*   Updated: 2024/05/11 12:33:14 by abenamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __SERIALIZER__HPP__
 #define __SERIALIZER__HPP__
 
-#include <cstdlib>
 #include <stdint.h>
 #include <string>
 

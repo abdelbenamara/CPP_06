@@ -6,7 +6,7 @@
 /*   By: abenamar <abenamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:23:36 by abenamar          #+#    #+#             */
-/*   Updated: 2024/05/11 16:29:47 by abenamar         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:45:23 by abenamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,20 @@ int main(void)
 
 	std::srand(std::time(NULL));
 
-	random = generate();
+	random = ::generate();
 
-	identify(random);
-	identify(*random);
-	identify(&base);
-	identify(&a);
-	identify(&b);
-	identify(&c);
-	identify(base);
-	identify(a);
-	identify(b);
-	identify(c);
+	::identify(random);
+	::identify(*random);
+	::identify(&base);
+	::identify(&a);
+	::identify(&b);
+	::identify(&c);
+	::identify(base);
+	::identify(a);
+	::identify(b);
+	::identify(c);
+
+	delete random;
 
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abenamar <abenamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:31:22 by abenamar          #+#    #+#             */
-/*   Updated: 2024/05/09 21:53:08 by abenamar         ###   ########.fr       */
+/*   Updated: 2024/05/11 00:25:40 by abenamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 #define __SCALARCONVERTER__HPP__
 
 #include <cmath>
-#include <exception>
+#include <cstdlib>
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <limits>
 #include <string>
 
@@ -26,10 +28,10 @@ public:
 
 private:
 	ScalarConverter(void) throw();
-	ScalarConverter(ScalarConverter const &src) throw();
+	ScalarConverter(ScalarConverter const & /* src */) throw();
 	virtual ~ScalarConverter(void) throw();
 
-	ScalarConverter &operator=(ScalarConverter const &rhs) throw();
+	ScalarConverter &operator=(ScalarConverter const & /* rhs */) throw();
 };
 
 #endif

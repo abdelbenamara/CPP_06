@@ -6,7 +6,7 @@
 /*   By: abenamar <abenamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:38:02 by abenamar          #+#    #+#             */
-/*   Updated: 2024/05/09 22:06:06 by abenamar         ###   ########.fr       */
+/*   Updated: 2024/05/11 01:35:18 by abenamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,71 +14,64 @@
 
 ScalarConverter::ScalarConverter(void) throw() { return; }
 
-ScalarConverter::ScalarConverter(ScalarConverter const &src) throw() { return; }
+ScalarConverter::ScalarConverter(ScalarConverter const & /* src */) throw() { return; }
 
 ScalarConverter::~ScalarConverter(void) throw() { return; }
 
-ScalarConverter &ScalarConverter::operator=(ScalarConverter const &rhs) throw() { return (*this); }
+ScalarConverter &ScalarConverter::operator=(ScalarConverter const & /* rhs */) throw() { return (*this); }
 
 void ScalarConverter::convert(std::string const &literal) throw()
 {
-	bool isImpossible = false;
-	bool isChar = true;
-	bool isFinite = true;
-	char c;
-	int i;
-	float f;
+	std::stringstream ss;
 	double d;
+	float f;
+	int i;
+	char c;
 
-	try
-	{
-		d = std::stod(literal);
-	}
-	catch (std::exception const &e)
-	{
-		if (literal.length() > 1)
-			isChar = false;
-		
-		if (!isChar)
-			isImpossible = true;
+	ss << literal;
+	ss >> d;
 
-		if (isChar)
+	if (ss.fail())
+	{
+		if (literal.length() != 1)
+		{
+			d = std::strtod(literal.c_str(), NULL);
+
+			if (d == 0.0)
+			{
+				std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible" << std::endl;
+
+				return;
+			}
+		}
+		else
 			d = static_cast<double>(literal.at(0));
-	}
-
-	if (isImpossible)
-	{
-		std::cout << "char: impossible" << std::endl;
-		std::cout << "int: impossible" << std::endl;
-		std::cout << "float: impossible" << std::endl;
-		std::cout << "double: impossible" << std::endl;
-
-		return;
 	}
 
 	c = static_cast<char>(d);
 	i = static_cast<int>(d);
 	f = static_cast<float>(d);
 
-	isFinite = (d == std::numeric_limits<double>::quiet_NaN() || d == std::numeric_limits<double>::infinity() || d == -std::numeric_limits<double>::infinity());
+	if (std::isfinite(d))
+	{
+		if (d < std::numeric_limits<char>::min() || std::numeric_limits<char>::max() < d)
+			std::cout << "char: impossible\n";
+		else if (!std::isprint(c))
+			std::cout << "char: non displayable\n";
+		else
+			std::cout << "char: '" << c << "'\n";
 
-	std::cout << "char: ";
-	
-	if (!isFinite)
-		std::cout << "impossible";
-	else if (!std::isprint(c))
-		std::cout << "non displayable";
+		if (d < std::numeric_limits<int>::min() || std::numeric_limits<int>::max() < d)
+			std::cout << "int: impossible\n";
+		else
+			std::cout << "int: " << i << '\n';
+	}
 	else
-		std::cout << c;
+		std::cout << "char: impossible\nint: impossible\n";
 
-	std::cout << std::endl;
-
-	std::cout << "int: ";
-
-	if (d < std::numeric_limits<int>::min() || std::numeric_limits<int>::max() < d)
-		std::cout << "impossible";
-	else
-		std::cout << i;
+	std::cout << std::fixed << std::setprecision(1);
+	std::cout << "float: " << f << "f\n";
+	std::cout << "double: " << d << std::endl;
 
 	return;
 }
